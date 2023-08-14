@@ -3,8 +3,9 @@
         android:label="twitter_clone"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <activity
+        <activity            
             android:name=".MainActivity"
+            android:keepScreenOn="true"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
