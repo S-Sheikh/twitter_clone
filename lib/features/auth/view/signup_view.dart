@@ -1,19 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:twitter_clone/common/rounded_small_button.dart';
 import 'package:twitter_clone/constants/constants.dart';
-import 'package:twitter_clone/features/auth/view/signup_view.dart';
+import 'package:twitter_clone/features/auth/view/login_view.dart';
 import 'package:twitter_clone/features/auth/widgets/auth_field.dart';
 import 'package:twitter_clone/theme/pallete.dart';
+import 'package:twitter_clone/common/common.dart';
 
-class LoginView extends StatefulWidget {
-  const LoginView({super.key});
-  static route() => MaterialPageRoute(builder: (context) => const LoginView());
+class SignUpView extends StatefulWidget {
+  const SignUpView({super.key});
+  static route() => MaterialPageRoute(
+  builder: (context) => const SignUpView()
+  );
   @override
-  State<LoginView> createState() => _LoginViewState();
+  State<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends State<LoginView> {
+class _SignUpViewState extends State<SignUpView> {
   final appbar = UIConstants.appBar();
   final emailController = TextEditingController();
   final passWordController = TextEditingController();
@@ -56,20 +58,21 @@ class _LoginViewState extends State<LoginView> {
                 ),
                 RichText(
                     text: TextSpan(
-                        text: "Don't have an account?",
+                        text: "Already have an account?",
                         style: const TextStyle(fontSize: 16),
                         children: [
                       TextSpan(
-                          text: ' Sign up',
+                          text: ' Login',
                           style: const TextStyle(
                             color: Pallete.blueColor,
                             fontSize: 16,
                           ),
-                          recognizer: TapGestureRecognizer()..onTap = () {
-                            Navigator.push(
-                                  context,SignUpView.route()
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              Navigator.push(
+                                  context,LoginView.route()
                               );
-                          })
+                            })
                     ]))
               ],
             ),
@@ -77,14 +80,5 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
-  }
-}
-
-class ReUsableAppBar extends StatelessWidget {
-  const ReUsableAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar();
   }
 }
