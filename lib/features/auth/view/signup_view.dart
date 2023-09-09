@@ -1,21 +1,21 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/constants/constants.dart';
+import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/features/auth/view/login_view.dart';
 import 'package:twitter_clone/features/auth/widgets/auth_field.dart';
 import 'package:twitter_clone/theme/pallete.dart';
 import 'package:twitter_clone/common/common.dart';
 
-class SignUpView extends StatefulWidget {
+class SignUpView extends ConsumerStatefulWidget {
   const SignUpView({super.key});
-  static route() => MaterialPageRoute(
-  builder: (context) => const SignUpView()
-  );
+  static route() => MaterialPageRoute(builder: (context) => const SignUpView());
   @override
-  State<SignUpView> createState() => _SignUpViewState();
+  ConsumerState<SignUpView> createState() => _SignUpViewState();
 }
 
-class _SignUpViewState extends State<SignUpView> {
+class _SignUpViewState extends ConsumerState<SignUpView> {
   final appbar = UIConstants.appBar();
   final emailController = TextEditingController();
   final passWordController = TextEditingController();
@@ -25,6 +25,13 @@ class _SignUpViewState extends State<SignUpView> {
     super.dispose();
     emailController.dispose();
     passWordController.dispose();
+  }
+
+  void onSignUp() {
+    final res = ref.read(authControllerProvider.notifier).signUp(
+        email: emailController.text,
+        password: passWordController.text,
+        context: context);
   }
 
   @override
@@ -48,7 +55,7 @@ class _SignUpViewState extends State<SignUpView> {
                 Align(
                     alignment: Alignment.topRight,
                     child: RoundedSmallButton(
-                      onTap: () {},
+                      onTap: onSignUp,
                       label: 'Done',
                       backgroundColor: Pallete.whiteColor,
                       textColor: Pallete.backgroundColor,
@@ -69,9 +76,7 @@ class _SignUpViewState extends State<SignUpView> {
                           ),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              Navigator.push(
-                                  context,LoginView.route()
-                              );
+                              Navigator.push(context, LoginView.route());
                             })
                     ]))
               ],
